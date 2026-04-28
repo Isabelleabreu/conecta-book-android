@@ -21,10 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -41,14 +37,19 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.conectabook.components.ValidadorSenhaItem
+import com.example.conectabook.viewmodel.LoginViewModel
 
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier) {
 
+    val viewModel: LoginViewModel = viewModel()
+
     val colors = MaterialTheme.colorScheme
-    var email by remember { mutableStateOf("") }
-    var senha by remember { mutableStateOf("") }
+
+
 
     Column(
         modifier = Modifier
@@ -107,9 +108,10 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             ) {
 
                 TextField(
-                    value = email,
-                    onValueChange = { email = it },
+                    value = viewModel.email,
+                    onValueChange = viewModel::onEmailChange,
                     placeholder = { Text("Digite seu email") },
+                    isError = viewModel.emailErro,
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Email,
@@ -130,12 +132,24 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                     )
                 )
 
+                //mensagem de retorno do erro
+                if (viewModel.emailErro){
+//                    Spacer(modifier = Modifier.height(4.dp)
+
+                    Text(
+                        text = "Email inválido!",
+                        color = MaterialTheme.colorScheme.error,
+                        fontSize = 12.sp
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
 
                 TextField(
-                    value = senha,
-                    onValueChange = { senha = it },
+                    value = viewModel.senha,
+                    onValueChange = viewModel::onSenhaChange,
                     placeholder = { Text("Digite sua senha") },
+                    isError = viewModel.senhaErro,
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Outlined.Lock,
@@ -157,7 +171,17 @@ fun LoginScreen(modifier: Modifier = Modifier) {
                     )
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+
+                //mensagem de retorno para erro de senha
+                if (viewModel.senha.isNotEmpty()){
+                    ValidadorSenhaItem(
+                        valido = viewModel.senhaTamanhoValido,
+                        texto = "Sua senha deve ter entre 8 e 100 caracteres"
+                    )
+                }
+
+                //8
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
                     text = "Esqueceu a senha?",
@@ -168,8 +192,15 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 
                 Spacer(modifier = Modifier.height(24.dp))
 
+
                 Button(
-                    onClick = {},
+                    onClick = {
+                        val valido = viewModel.validarLogin()
+                        if (valido) {
+                            //Todo: home(fazer navegação)
+                        }
+                    },
+                    enabled = viewModel.habilitarClicar,
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(56.dp),
