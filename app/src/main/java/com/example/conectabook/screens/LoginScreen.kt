@@ -174,10 +174,22 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 
                 //mensagem de retorno para erro de senha
                 if (viewModel.senha.isNotEmpty()){
-                    ValidadorSenhaItem(
-                        valido = viewModel.senhaTamanhoValido,
-                        texto = "Sua senha deve ter entre 8 e 100 caracteres"
-                    )
+                    Column {
+                        ValidadorSenhaItem(
+                            valido = viewModel.senhaTamanhoValido,
+                            texto = "Sua senha deve ter entre 8 e 100 caracteres"
+                        )
+
+                        ValidadorSenhaItem(
+                            valido = viewModel.senhaSemSequencia,
+                            texto = "Não utilize sequências, (ex:123,abc)"
+                        )
+
+                        ValidadorSenhaItem(
+                            valido = viewModel.senhaSemRepeticao,
+                            texto = "Não utilize repetições (ex: aaa)"
+                        )
+                    }
                 }
 
                 //8
