@@ -66,7 +66,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
             Image(
                 modifier = Modifier.size(150.dp),
                 painter = painterResource(id = R.drawable.mascote),
-                contentDescription = "Conecta Book"
+                contentDescription = "Mascote Conecta Book sorrindo"
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -91,7 +91,7 @@ fun LoginScreen(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-//card
+//Card login
         Card(
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),

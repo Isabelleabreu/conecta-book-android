@@ -20,3 +20,7 @@ val TextSecondary = Color(0xFF6B7280)
 val BorderColor = Color(0xFFE5E7EB)
 
 val InputBackground = Color(0xFFF3F4F6)
+
+// cores do info - tela esqueceu a senha
+val BlueInfoLight = Color(0xFFE8F1FF)
+val BlueInfo = Color(0xFF3B82F6)

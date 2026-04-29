@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.conectabook.screens.EsqueceuSenhaScreen
 import com.example.conectabook.screens.LoginScreen
 import com.example.conectabook.ui.theme.ConectaBookTheme
 
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             ConectaBookTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(
+                    EsqueceuSenhaScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
